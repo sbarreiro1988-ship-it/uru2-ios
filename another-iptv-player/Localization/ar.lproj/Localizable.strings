@@ -1,0 +1,604 @@
+// MARK: - Common
+"common.ok" = "موافق";
+"common.cancel" = "إلغاء";
+"common.save" = "حفظ";
+"common.delete" = "حذف";
+"common.close" = "إغلاق";
+"common.error" = "خطأ";
+"common.yes" = "نعم";
+"common.back" = "رجوع";
+"common.search" = "بحث";
+"common.try_again" = "إعادة المحاولة";
+"common.unknown_error" = "خطأ غير معروف.";
+"common.days_format" = "%d يوم";
+"common.loading" = "جاري التحميل...";
+"common.confirm_delete_yes" = "نعم، احذف";
+"common.edit" = "تعديل";
+
+// MARK: - Playlist list
+"playlists.title" = "قوائم التشغيل";
+"playlists.empty.title" = "لا توجد قوائم";
+"playlists.empty.message" = "أضف قائمة IPTV لمشاهدة التلفاز والأفلام والمسلسلات.";
+"playlists.empty.add_button" = "إضافة قائمة جديدة";
+"playlists.local_file" = "ملف محلي";
+"playlists.delete.title" = "حذف القائمة";
+"playlists.delete.message" = "هل تريد حذف هذه القائمة وكل محتواها؟";
+
+// MARK: - Playlist type picker
+"playlist_type.title" = "إضافة قائمة";
+"playlist_type.section" = "نوع القائمة";
+"playlist_type.xtream.title" = "Xtream Code";
+"playlist_type.xtream.subtitle" = "رابط السيرفر واسم المستخدم وكلمة المرور.";
+"playlist_type.m3u.title" = "M3U / M3U8";
+"playlist_type.m3u.subtitle" = "رابط بعيد أو ملف محلي .m3u / .m3u8.";
+
+// MARK: - Add playlist (Xtream)
+"add_playlist.xtream.title_new" = "إضافة قائمة";
+"add_playlist.xtream.title_edit" = "تعديل القائمة";
+"add_playlist.section.info" = "معلومات القائمة";
+"add_playlist.section.credentials" = "بيانات الدخول";
+"add_playlist.section.content_settings" = "إعدادات المحتوى";
+"add_playlist.name_placeholder" = "اسم القائمة (مثال: IPTV الخاص بي)";
+"add_playlist.server_url" = "رابط السيرفر";
+"add_playlist.username" = "اسم المستخدم";
+"add_playlist.password" = "كلمة المرور";
+"add_playlist.filter_adult" = "تصفية محتوى الكبار";
+"add_playlist.filter_adult.desc" = "يخفي XXX و18+ وفئات الكبار و is_adult";
+"add_playlist.verifying" = "جاري التحقق...";
+"add_playlist.auth_failed" = "فشل المصادقة. افحص البيانات.";
+"add_playlist.fetching_categories" = "تحميل الفئات...";
+"add_playlist.fetching_live" = "تحميل القنوات المباشرة...";
+"add_playlist.fetching_movies" = "تحميل الأفلام...";
+"add_playlist.fetching_series" = "تحميل المسلسلات...";
+"add_playlist.saving_db" = "حفظ... انتظر.";
+"add_playlist.download_save_error" = "خطأ في التحميل/الحفظ: %@";
+
+// MARK: - Add playlist (M3U)
+"add_m3u.title_new" = "إضافة M3U";
+"add_m3u.title_edit" = "تعديل M3U";
+"add_m3u.name_placeholder" = "اسم القائمة (مثال: M3U الخاص بي)";
+"add_m3u.section.source" = "المصدر";
+"add_m3u.section.source_footer" = "رابط أو ملف محلي — أحدهما كافٍ.";
+"add_m3u.url_placeholder" = "رابط M3U / M3U8 (http/https)";
+"add_m3u.pick_file" = "اختر ملف محلي";
+"add_m3u.pick_another_file" = "اختر ملف آخر";
+"add_m3u.remove_file" = "إزالة الملف";
+"add_m3u.preparing" = "تحضير المحتوى...";
+"add_m3u.downloading" = "تحميل M3U...";
+"add_m3u.parsing" = "تحليل القنوات...";
+"add_m3u.saving_db" = "حفظ...";
+"add_m3u.xtream_detected" = "تم اكتشاف حساب Xtream، جارٍ الاتصال...";
+
+// MARK: - Dashboard
+"dashboard.live" = "البث المباشر";
+"dashboard.movies" = "الأفلام";
+"dashboard.series" = "المسلسلات";
+"dashboard.channels" = "القنوات";
+"dashboard.settings" = "الإعدادات";
+"dashboard.search" = "بحث";
+
+// MARK: - Live streams
+"live.search_placeholder" = "ابحث عن قناة...";
+"live.empty.no_category" = "لا توجد فئات.";
+"live.empty.no_channel_in_category" = "لا توجد قنوات في هذه الفئة.";
+"live.empty.preparing" = "تحضير القنوات...";
+
+// MARK: - VOD / Series
+"vod.search_placeholder" = "ابحث عن فيلم...";
+"vod.empty.preparing" = "تحضير الأفلام...";
+"series.search_placeholder" = "ابحث عن مسلسل...";
+"series.empty.preparing" = "تحضير المسلسلات...";
+
+// MARK: - Common list states
+"list.no_result" = "لا نتائج.";
+"list.no_channel" = "لا توجد قنوات.";
+"list.jump_to_category" = "الانتقال إلى الفئة";
+"list.channel_list" = "قائمة القنوات";
+
+// MARK: - Category picker
+"category_picker.title" = "الفئات";
+"category_picker.search_placeholder" = "ابحث في الفئات...";
+"category_picker.not_found.title" = "لا توجد فئات";
+"category_picker.not_found.message" = "جرّب كلمة أخرى.";
+"category_picker.hide" = "إخفاء";
+"category_picker.unhide" = "إظهار";
+"category_picker.hidden_section" = "الفئات المخفية";
+
+// MARK: - M3U channels
+"m3u.search_placeholder" = "ابحث عن قناة أو مجموعة...";
+"m3u.loading" = "تحميل القنوات...";
+"m3u.empty.no_channel" = "لا توجد قنوات.";
+"m3u.ungrouped_label" = "أخرى";
+
+// MARK: - Continue watching
+"continue_watching.title" = "متابعة المشاهدة";
+"recently_added.title" = "المضافة حديثاً";
+"history.title" = "سجل المشاهدة";
+"history.title.live" = "سجل البث المباشر";
+"history.title.vod" = "سجل الأفلام";
+"history.title.series" = "سجل المسلسلات";
+"history.empty.title" = "لا يوجد سجل";
+"history.empty.message" = "سيظهر هنا عندما تشاهد شيئاً.";
+"history.search_placeholder" = "ابحث في السجل...";
+"history.clear.title" = "مسح السجل";
+"history.clear.label" = "مسح السجل";
+"history.clear.button_entry" = "مسح سجل المشاهدة";
+"history.clear.message.all" = "سيتم حذف السجل كاملاً (بما في ذلك المواضع). متأكد؟";
+"history.clear.message.live" = "سيتم حذف سجل البث. متأكد؟";
+"history.clear.message.vod" = "سيتم حذف سجل الأفلام (والمواضع). متأكد؟";
+"history.clear.message.series" = "سيتم حذف سجل المسلسلات (والمواضع). متأكد؟";
+
+// MARK: - Favorites
+"favorites.title" = "المفضلة";
+"favorites.empty.title" = "لا توجد مفضلة بعد";
+"favorites.empty.message" = "اضغط مطولاً على قناة لإضافتها إلى المفضلة.";
+"favorites.empty.no_result.title" = "لا نتائج";
+"favorites.search_placeholder" = "ابحث في المفضلة...";
+"favorites.add" = "إضافة إلى المفضلة";
+"favorites.remove" = "إزالة من المفضلة";
+
+// MARK: - Settings (common)
+"settings.back_to_list" = "العودة إلى القوائم";
+"settings.refresh_all" = "إعادة تحميل كل المحتوى";
+"settings.player.title" = "إعدادات المشغل";
+"settings.player.pip.title" = "صورة داخل صورة";
+"settings.player.pip.desc" = "يسمح بوضع PiP";
+"settings.player.background.title" = "المتابعة في الخلفية";
+"settings.player.background.desc" = "إن كان مغلقاً، يتوقف عند تصغير التطبيق";
+"settings.player.longpress.title" = "تسريع عند الضغط المطوّل";
+"settings.player.longpress.desc" = "اضغط مطولاً للتشغيل بسرعة 2x";
+"settings.player.autonext.title" = "تشغيل الحلقة التالية تلقائيًا";
+"settings.player.autonext.desc" = "عند انتهاء الحلقة، تبدأ الحلقة التالية تلقائيًا";
+"player.autonext.countdown" = "الحلقة التالية خلال %d";
+"settings.playlist.info.title" = "معلومات القائمة";
+"settings.playlist.name" = "الاسم";
+"settings.playlist.type" = "النوع";
+"settings.playlist.server_url" = "رابط السيرفر";
+"settings.playlist.username" = "اسم المستخدم";
+"settings.playlist.password" = "كلمة المرور";
+"settings.playlist.subscription" = "المدة المتبقية";
+"settings.playlist.active_connection" = "اتصال نشط";
+"settings.playlist.max_connection" = "أقصى اتصال";
+"settings.playlist.unlimited" = "غير محدود";
+"settings.playlist.unknown" = "غير معروف";
+"settings.playlist.unlimited_or_unknown" = "غير محدود / غير معروف";
+"settings.playlist.expired" = "منتهي الصلاحية";
+"settings.playlist.fetching_info" = "تحميل معلومات الاشتراك...";
+"settings.playlist.info_error" = "تعذر الحصول على المعلومات: %@";
+
+"settings.stats.title" = "إحصائيات المحتوى";
+"settings.stats.live_count" = "عدد القنوات";
+"settings.stats.movie_count" = "عدد الأفلام";
+"settings.stats.series_count" = "عدد المسلسلات";
+"settings.stats.channel_count" = "عدد القنوات";
+"settings.stats.group_count" = "عدد المجموعات";
+"settings.stats.history_count" = "السجل";
+"settings.stats.history_items_format" = "%d عنصر";
+
+"settings.server.title" = "معلومات السيرفر";
+"settings.server.timezone" = "المنطقة الزمنية";
+"settings.server.message" = "رسالة السيرفر";
+
+"settings.content_management.title" = "إدارة المحتوى";
+"settings.filter_adult.title" = "تصفية محتوى الكبار";
+"settings.filter_adult.xtream_desc" = "يلزم إعادة تحميل المحتوى بعد التغيير";
+"settings.filter_adult.m3u_desc" = "يخفي القنوات/المجموعات التي تحوي XXX أو 18+ أو adult";
+
+"settings.about.title" = "حول";
+"settings.about.version" = "الإصدار";
+"settings.about.tip.title" = "ادعم التطبيق";
+"settings.about.tip.desc" = "ساهم في تطوير التطبيق بإكرامية.";
+"settings.about.github.title" = "ادعمنا على GitHub";
+"settings.about.github.desc" = "شارك في المشروع على GitHub";
+
+// MARK: - Tip jar
+"tip.title" = "الإكراميات";
+"tip.footer" = "هذا التطبيق مجاني ومفتوح المصدر. إذا أعجبك، فإن الإكرامية تساعد على استمرار التطوير. الإكراميات عمليات شراء لمرة واحدة ولا تفتح أي ميزات.";
+"tip.tier.small" = "ادعمني بفنجان قهوة";
+"tip.tier.medium" = "ادعم التطوير";
+"tip.tier.large" = "ساهم في التحديث القادم";
+"tip.unavailable" = "الإكراميات غير متاحة حاليًا. يُرجى المحاولة لاحقًا.";
+"tip.thanks.title" = "شكرًا لك!";
+"tip.thanks.message" = "دعمك يعني الكثير ويساعد على استمرار هذا المشروع.";
+"tip.pending" = "عملية الشراء بانتظار الموافقة.";
+
+// MARK: - M3U settings
+"settings.m3u.type_label" = "M3U / M3U8";
+"settings.m3u.refresh_url" = "إعادة التحميل من الرابط";
+"settings.m3u.refresh_file" = "إعادة التحميل من ملف";
+"settings.m3u.source_url" = "رابط المصدر";
+"settings.m3u.source" = "المصدر";
+"settings.m3u.epg_url" = "EPG URL (معلومة)";
+"settings.m3u.parsing" = "تحليل...";
+"settings.m3u.saving" = "حفظ...";
+"settings.m3u.reading_file" = "قراءة الملف...";
+"settings.m3u.downloading" = "تحميل...";
+
+// MARK: - Language
+"settings.language.title" = "لغة التطبيق";
+"settings.language.section" = "اللغة";
+"settings.language.system" = "لغة النظام";
+
+// MARK: - Stream types
+"stream.live" = "مباشر";
+"stream.vod" = "فيلم";
+"stream.series" = "مسلسل";
+"stream.m3u" = "M3U";
+
+// MARK: - Errors
+"loading.error.title" = "خطأ في التحميل";
+"parser.error.empty" = "محتوى M3U فارغ.";
+"parser.error.no_channels" = "لا توجد قنوات. هل الملف صالح؟";
+
+"net.error.invalid_url" = "رابط غير صالح: %@";
+"net.error.network" = "خطأ في الشبكة: %@";
+"net.error.server" = "خطأ من السيرفر (HTTP %d)";
+"net.error.file_read" = "تعذر قراءة الملف: %@";
+"net.error.encoding_unsupported" = "تعذر فك الترميز (غير مدعوم).";
+
+// MARK: - Misc
+"misc.channel_fallback_name" = "قناة %d";
+"misc.refresh_error" = "خطأ في التحديث: %@";
+"misc.save_setting_error" = "تعذر الحفظ: %@";
+"misc.history_delete_error" = "تعذر الحذف: %@";
+"misc.xtream.auth_error" = "اسم المستخدم أو كلمة المرور غير صحيحة.";
+"misc.xtream.invalid_url" = "رابط غير صالح أو غير صحيح: %@";
+"misc.xtream.decode_error" = "خطأ في فك البيانات: %@";
+
+// MARK: - Downloads
+"download.action" = "تنزيل";
+"download.downloading_format" = "%d%%";
+"download.completed" = "تم التنزيل";
+"download.retry" = "إعادة المحاولة";
+"download.cancel" = "إلغاء";
+"download.delete" = "حذف";
+"download.title" = "التنزيلات";
+"download.search_placeholder" = "ابحث في التنزيلات...";
+"download.empty.title" = "لا توجد تنزيلات";
+"download.empty.message" = "نزّل الأفلام أو الحلقات من شاشة التفاصيل.";
+"download.status.downloading" = "جاري التنزيل";
+"download.status.queued" = "في قائمة الانتظار";
+"download.status.failed" = "فشل";
+"download.play" = "تشغيل";
+"download.size_format" = "%@ / %@";
+"download.settings" = "التنزيلات";
+"download.wifi_only.title" = "تنزيل عبر Wi-Fi فقط";
+"download.wifi_only.desc" = "لن يُستخدم الإنترنت الخلوي للتنزيلات.";
+"download.storage_used" = "الاستخدام";
+"download.delete_all" = "حذف جميع التنزيلات";
+"download.delete_all.message" = "سيتم إزالة كل المحتوى المحمل من الجهاز. هل تريد المتابعة؟";
+
+// MARK: - Player subtitle import
+"player.subtitle_import.section" = "الترجمات المستوردة";
+"player.subtitle_import.button" = "استيراد ملف ترجمة";
+"player.subtitle_import.footer" = "تُحفظ الترجمات المستوردة لهذا العنوان وتُحمَّل تلقائيًا عند التشغيل التالي.";
+"player.subtitle_import.failed" = "تعذّر استيراد ملف الترجمة.";
+"player.audio_delay.section" = "مزامنة الصوت";
+"player.audio_delay.label" = "تأخير الصوت";
+"player.audio_delay.footer" = "القيم الموجبة تؤخّر الصوت، والقيم السالبة تقدّمه. مفيد مع سماعات البلوتوث ومكبرات الصوت.";
+
+// MARK: - Player (overlay, tracks & subtitle appearance)
+"player.all_channels" = "كل القنوات";
+"player.tracks.empty.video" = "لا توجد مسارات فيديو";
+"player.tracks.empty.audio" = "لا توجد مسارات صوت";
+"player.tracks.empty.subtitle" = "لا توجد ترجمات";
+"player.tracks.title" = "مسارات التشغيل";
+"player.tracks.video" = "الفيديو";
+"player.tracks.audio" = "الصوت";
+"player.tracks.subtitle" = "الترجمة";
+"player.subtitle_off" = "إيقاف";
+"player.buffering" = "جارٍ التخزين المؤقت";
+"player.ended" = "انتهى";
+"playback.error.timeout" = "الخادم لا يستجيب.";
+"playback.error.forbidden" = "تم رفض الوصول (403).";
+"playback.error.unauthorized" = "المصادقة مطلوبة (401).";
+"playback.error.not_found" = "لم يتم العثور على البث (404).";
+"playback.error.failed_to_start" = "تعذّر بدء التشغيل.";
+"playback.error.cannot_reach" = "يتعذّر الوصول إلى الخادم أو البث.";
+"playback.error.unsupported" = "هذا المحتوى غير مدعوم على الجهاز.";
+"playback.error.no_playable_stream" = "لم يتم العثور على صوت أو فيديو قابل للتشغيل.";
+"playback.error.output_init_failed" = "تعذّر بدء إخراج الصوت أو الفيديو.";
+"playback.error.failed_check_network" = "فشل التشغيل. تحقق من اتصال الشبكة.";
+"playback.error.rejected_by_server" = "رفض الخادم هذا البث. تحقق مع مزودك من أن حسابك يملك صلاحية الوصول إليه.";
+"playback.error.server_error" = "أعاد الخادم خطأ. حاول مرة أخرى لاحقًا.";
+"player.live_badge" = "مباشر";
+"player.pip_enter" = "تشغيل صورة داخل صورة";
+"player.pip_exit" = "إنهاء صورة داخل صورة";
+"player.aspect_fit" = "احتواء";
+"player.aspect_fill" = "ملء";
+"player.aspect_native" = "أصلي";
+"subtitle.settings_title" = "إعدادات الترجمة";
+"subtitle.sample_text" = "نص ترجمة تجريبي\nسيظهر بهذا الشكل";
+"subtitle.font_settings" = "الخط";
+"subtitle.font_size" = "حجم الخط";
+"subtitle.font_height" = "ارتفاع السطر";
+"subtitle.letter_spacing" = "تباعد الأحرف";
+"subtitle.word_spacing" = "تباعد الكلمات";
+"subtitle.padding" = "الحشو الداخلي";
+"subtitle.colors" = "الألوان";
+"subtitle.text_color" = "لون النص";
+"subtitle.background_color" = "لون الخلفية";
+"subtitle.style" = "النمط";
+"subtitle.font_weight" = "سُمك الخط";
+"subtitle.text_align" = "المحاذاة";
+"subtitle.reset" = "إعادة تعيين";
+"subtitle.delay" = "التأخير";
+"subtitle.no_delay" = "بدون تأخير";
+"subtitle.preview" = "معاينة";
+"subtitle.apply" = "تطبيق";
+"subtitle.italic" = "مائل";
+"subtitle.outline_size" = "حجم الحدود";
+"subtitle.outline_color" = "لون الحدود";
+"subtitle.outline_position" = "الحدود والموضع";
+"subtitle.vertical_offset" = "الموضع العمودي";
+"subtitle.timing" = "التوقيت";
+"subtitle.time_offset" = "إزاحة الوقت";
+"subtitle.timing_footer" = "سالب: أبكر؛ موجب: لاحقًا.";
+"subtitle.background_enabled" = "الخلفية";
+"subtitle.background_opacity" = "عتامة الخلفية";
+"subtitle.alignment" = "المحاذاة";
+"subtitle.section.font" = "الخط";
+"subtitle.section.color" = "اللون";
+"subtitle.style.footer" = "تُقرَّب الأوزان مثل الرفيع/المتوسط عبر خط النظام. قد تعود المحاذاة المضبوطة إلى الوسط بسبب قيود libass.";
+"subtitle.default_value" = "افتراضي";
+"subtitle.reset_to_default" = "إعادة التعيين إلى الافتراضي";
+"subtitle.sample_preview" = "مرحبًا. هذه معاينة\nللترجمة.";
+"player.dev_section" = "المطوّر";
+"player.show_debug_overlay" = "إظهار طبقة التصحيح";
+"player.stream_url.title" = "رابط البث";
+"player.stream_url.copy" = "نسخ رابط البث";
+"player.stream_url.copied" = "تم النسخ";
+"style.weight.thin" = "رفيع";
+"style.weight.normal" = "عادي";
+"style.weight.medium" = "متوسط";
+"style.weight.bold" = "عريض";
+"style.weight.extra_bold" = "عريض جدًا";
+"style.align.left" = "يسار";
+"style.align.center" = "وسط";
+"style.align.right" = "يمين";
+"style.align.justify" = "ضبط";
+"player.brightness" = "السطوع";
+"player.volume" = "مستوى الصوت";
+"player.playback_error" = "خطأ في التشغيل";
+"player.live_on_air" = "على الهواء";
+"player.preparing" = "جارٍ تجهيز المشغّل…";
+
+// MARK: - Content details, search & loading phases
+"category.no_result_in_category" = "لا توجد نتائج في هذه الفئة.";
+"category.see_all" = "عرض الكل";
+"content.unnamed" = "بدون عنوان";
+"detail.episode_count_plural" = "%d حلقة";
+"detail.episode_fallback" = "حلقة";
+"detail.loading_movie" = "جارٍ تحميل معلومات الفيلم...";
+"detail.loading_series" = "جارٍ تحميل معلومات المسلسل...";
+"detail.remaining_format" = "متبقٍ %@";
+"detail.restart" = "البدء من جديد";
+"detail.resume" = "المتابعة من حيث توقفت";
+"detail.watch" = "مشاهدة";
+"detail.watch_now" = "شاهد الآن";
+"detail.watched" = "تمت المشاهدة";
+"download.player_warning.continue" = "متابعة";
+"download.player_warning.go_to_downloads" = "الانتقال إلى التنزيلات";
+"download.player_warning.message" = "هناك تنزيل قيد التقدم في الخلفية. إذا بدأت التشغيل فقد يتوقف التنزيل مؤقتًا بسبب حد اتصالات الخادم. هل تريد المتابعة؟";
+"download.player_warning.title" = "تنزيل قيد التقدم";
+"favorites.empty.live" = "لا توجد قنوات مفضلة بعد.";
+"favorites.empty.movie" = "لا توجد أفلام مفضلة بعد.";
+"favorites.empty.series" = "لا توجد مسلسلات مفضلة بعد.";
+"favorites.type" = "النوع";
+"loading.takes_time_hint" = "قد يستغرق هذا بعض الوقت حسب سرعة الإنترنت لديك.";
+"misc.xtream.server_error" = "خطأ في الخادم: %@";
+"movie.cast" = "طاقم التمثيل";
+"movie.director" = "المخرج";
+"movie.duration" = "المدة";
+"movie.genre" = "النوع";
+"movie.play" = "تشغيل";
+"movie.plot" = "القصة";
+"movie.rating" = "التقييم";
+"movie.release_date" = "تاريخ الإصدار";
+"movie.resume" = "متابعة";
+"movie.trailer" = "الإعلان التشويقي";
+"phase.clearing_content" = "جارٍ حذف المحتوى الحالي...";
+"phase.fetch_categories" = "جارٍ تنزيل الفئات...";
+"phase.fetch_live" = "جارٍ تنزيل القنوات المباشرة...";
+"phase.fetch_movies" = "جارٍ تنزيل الأفلام...";
+"phase.fetch_series" = "جارٍ تنزيل المسلسلات...";
+"phase.preparing" = "جارٍ التحضير...";
+"phase.preparing_list" = "جارٍ تجهيز القائمة...";
+"phase.save_db" = "جارٍ الحفظ في قاعدة البيانات...";
+"search.all" = "الكل";
+"search.min_chars" = "اكتب حرفين على الأقل";
+"search.more_results_format" = "%d نتائج إضافية";
+"search.placeholder" = "بحث...";
+"search.title" = "البحث";
+"series.empty.no_in_category" = "لا توجد مسلسلات في هذه الفئة.";
+"series.empty.no_series" = "لم يتم العثور على مسلسلات.";
+"series.episode_count_format" = "%d حلقة";
+"series.episode_format" = "الحلقة %d";
+"series.loading_seasons" = "جارٍ تحميل المواسم…";
+"series.no_episodes_in_season" = "لا توجد حلقات في هذا الموسم.";
+"series.no_seasons_info" = "لا تتوفر معلومات عن المواسم.";
+"series.season_format" = "الموسم %d";
+"series.seasons" = "المواسم";
+"vod.empty.no_in_category" = "لا توجد أفلام في هذه الفئة.";
+"vod.empty.no_movie" = "لم يتم العثور على أفلام.";
+
+"detail.show_more" = "عرض المزيد";
+"detail.show_less" = "عرض أقل";
+"player.a11y.playback_position" = "موضع التشغيل";
+"download.error.no_space" = "لا توجد مساحة تخزين كافية على هذا الجهاز";
+"download.missing_file.title" = "الملف لم يعد موجودًا على الجهاز";
+"download.missing_file.message" = "ملف التنزيل مفقود (يحدث هذا بعد استعادة الجهاز أو نقله). هل تريد تنزيله مرة أخرى؟";
+"content.uncategorized" = "غير مصنّف";
+"db.error.ephemeral_title" = "التخزين غير متاح";
+"db.error.ephemeral_message" = "تعذّر فتح قاعدة بيانات التطبيق. لن يتم حفظ أي شيء تضيفه أو تغيّره في هذه الجلسة. حرّر مساحة وأعد تشغيل التطبيق.";
+"db.error.reset_title" = "تمت إعادة تعيين البيانات";
+"db.error.reset_message" = "تعرّضت قاعدة بيانات التطبيق للتلف وتمت إعادة تعيينها. تم مسح قوائم التشغيل والمفضّلة وسجلّ المشاهدة — يرجى إضافة قوائم التشغيل مرة أخرى.";
+"player.a11y.pip" = "صورة داخل صورة";
+"player.airplay_active" = "يتم التشغيل عبر AirPlay";
+"player.a11y.subtitle_appearance" = "مظهر الترجمة";
+"player.a11y.track_settings" = "مسارات الصوت والترجمة";
+"player.a11y.skip_back_15" = "رجوع 15 ثانية";
+"player.a11y.skip_forward_15" = "تقديم 15 ثانية";
+"player.a11y.play" = "تشغيل";
+"player.a11y.pause" = "إيقاف مؤقت";
+"player.a11y.previous_channel" = "القناة السابقة";
+"player.a11y.next_channel" = "القناة التالية";
+"player.a11y.previous_episode" = "الحلقة السابقة";
+"player.a11y.next_episode" = "الحلقة التالية";
+"player.a11y.previous_item" = "السابق";
+"player.a11y.next_item" = "التالي";
+"player.a11y.expand_mini_player" = "التكبير إلى وضع ملء الشاشة";
+"catalog.load_failed.title" = "تعذّر تحميل المحتوى";
+"settings.show_password" = "إظهار كلمة المرور";
+"settings.hide_password" = "إخفاء كلمة المرور";
+"player.tracks.fallback_title" = "المسار %d";
+"player.tracks.channels" = "%d قناة";
+"player.tracks.cover_image" = "غلاف / صورة";
+"player.tracks.default" = "افتراضي";
+"player.tracks.forced" = "إجباري";
+
+/* EPG (Electronic Programme Guide) */
+"epg.a11y.now_playing_format" = "يُعرض الآن: %@";
+"epg.catchup.available" = "متاح في إعادة المشاهدة";
+"epg.catchup.error.unavailable" = "قد لا يكون هذا البرنامج متاحًا لدى مزوّدك بعد الآن.";
+"epg.day.today" = "اليوم";
+"epg.day.tomorrow" = "غدًا";
+"epg.day.yesterday" = "أمس";
+"epg.detail.live_badge" = "مباشر";
+"epg.detail.minutes_format" = "%d دقيقة";
+"epg.detail.play_catchup" = "تشغيل";
+"epg.detail.play_channel" = "تشغيل القناة";
+"epg.detail.watch_from_start" = "المشاهدة من البداية";
+"epg.empty.message" = "لا تتوفر بيانات البرامج بعد. حاول التحديث.";
+"epg.empty.title" = "لا توجد بيانات دليل";
+"epg.error.cancelled" = "تم إلغاء تحديث الدليل.";
+"epg.error.decompress" = "تعذّر فك ضغط ملف الدليل.";
+"epg.error.empty_guide" = "لم يحتوِ الدليل على أي برامج لقنواتك.";
+"epg.error.invalid_url" = "رابط EPG غير صالح: %@";
+"epg.error.network" = "خطأ في الشبكة: %@";
+"epg.error.no_source" = "لم يتم إعداد أي مصدر EPG.";
+"epg.error.parse" = "تعذّرت قراءة الدليل: %@";
+"epg.error.server" = "خطأ في الخادم (HTTP %d).";
+"epg.error.too_large" = "ملف الدليل كبير جدًا.";
+"epg.guide.title" = "دليل التلفزيون";
+"epg.categories.expand_all" = "توسيع الكل";
+"epg.categories.collapse_all" = "طي الكل";
+"epg.categories.menu_a11y" = "الفئات";
+"epg.categories.collapsed_a11y" = "مطوي";
+"epg.categories.expanded_a11y" = "موسّع";
+"epg.jump_to_now" = "الآن";
+"epg.last_updated" = "آخر تحديث";
+"epg.never_updated" = "أبدًا";
+"epg.no_data.channel" = "لا توجد معلومات عن البرامج";
+"epg.no_data.programme_cell" = "لا توجد معلومات";
+"epg.not_configured.m3u_message" = "أضف رابط EPG (XMLTV) في إعدادات قائمة التشغيل لعرض الدليل.";
+"epg.not_configured.title" = "لم يتم إعداد دليل التلفزيون";
+"epg.not_configured.xtream_message" = "حدّث لتنزيل دليل البرامج من مزوّدك.";
+"epg.now" = "الآن";
+"epg.programme_detail.title" = "البرنامج";
+"epg.refresh" = "تحديث الدليل";
+"epg.settings.enable" = "إظهار دليل التلفزيون";
+"epg.settings.matched_channels" = "القنوات المطابقة";
+"epg.settings.matched_channels_format" = "%d";
+"epg.settings.save_url" = "حفظ رابط EPG";
+"epg.settings.section_title" = "دليل التلفزيون (EPG)";
+"epg.settings.url_footer" = "رابط XMLTV المستخدم لدليل البرامج. يُكتشف من قائمة التشغيل تلقائيًا عند توفره.";
+"epg.settings.url_placeholder" = "رابط EPG (XMLTV)";
+
+// MARK: - VOD sort & filter
+"sort.title" = "فرز";
+"sort.default" = "افتراضي";
+"sort.name_asc" = "الاسم (أ–ي)";
+"sort.name_desc" = "الاسم (ي–أ)";
+"sort.rating_desc" = "التقييم";
+"sort.recently_added" = "المضافة حديثاً";
+"filter.file_type" = "نوع الملف";
+"filter.clear" = "مسح الفلتر";
+
+// MARK: - Browse all & filters
+"browse.all_movies" = "كل الأفلام";
+"browse.all_series" = "كل المسلسلات";
+"browse.all_live" = "كل القنوات";
+"filter.genre" = "النوع";
+"filter.title" = "تصفية";
+"filter.catchup" = "الإعادة متاحة";
+"filter.has_epg" = "يحتوي EPG";
+
+/* Player and AirPlay fixes */
+"player.airplay.preparing" = "جارٍ تجهيز AirPlay…";
+"player.airplay.notice.no_wifi" = "اتصل بشبكة Wi-Fi لاستخدام AirPlay.";
+"player.airplay.notice.no_local_server" = "تعذّر بدء AirPlay على هذا الجهاز. حاول مرة أخرى.";
+"player.airplay.notice.source_open_failed" = "تعذّر فتح البث لـ AirPlay.";
+"player.airplay.notice.source_too_slow" = "استغرق البث وقتًا طويلًا للبدء على AirPlay. حاول مرة أخرى.";
+"player.airplay.notice.incompatible" = "لا يمكن تشغيل هذا البث عبر AirPlay.";
+"player.airplay.notice.source_lost" = "توقف AirPlay بسبب انقطاع البث.";
+"player.airplay.notice.receiver_failed" = "فشل التشغيل عبر AirPlay. حاول مرة أخرى.";
+"player.airplay.notice.no_device" = "لم يتم اختيار جهاز AirPlay.";
+"player.airplay.notice.storage_full" = "لا توجد مساحة تخزين كافية لـ AirPlay.";
+"player.subtitle_import.error.unreadable_text" = "تعذّر التعرّف على ترميز النص في هذا الملف.";
+"player.subtitle_import.error.unsupported_format" = "تنسيق الترجمة هذا غير مدعوم. استخدم ملف SRT أو ASS أو SSA أو VTT.";
+"player.subtitle_import.error.no_cues" = "تعذّرت قراءة أي سطر ترجمة من هذا الملف.";
+"player.airplay.notice.receiver_unreachable" = "تعذّر على جهاز AirPlay الوصول إلى هذا الجهاز. صِل الجهازين بشبكة Wi-Fi نفسها (وليس شبكة ضيوف أو شبكة معزولة). قد يحظر VPN حركة البيانات المحلية.";
+"player.airplay.audio_only" = "يتم تشغيل الصوت على %@";
+"player.airplay.play_video_there" = "تشغيل الفيديو هناك";
+"player.debug.copy_airplay_log" = "نسخ سجل AirPlay";
+"player.aspect.title" = "نسبة العرض إلى الارتفاع";
+"player.speed.title" = "سرعة التشغيل";
+"player.sleep.title" = "مؤقت النوم";
+"player.sleep.off" = "إيقاف";
+"player.sleep.minutes" = "%d دقيقة";
+"player.sleep.remaining" = "مؤقت النوم: بقي %d دقيقة";
+"player.airplay.no_devices" = "لم يتم العثور على أجهزة AirPlay";
+"player.airplay.try_anyway" = "المحاولة على أي حال";
+"player.a11y.minimize" = "تصغير المشغّل";
+"player.a11y.show_controls" = "إظهار عناصر التحكم";
+"player.a11y.toggle_2x" = "سرعة 2x";
+"player.a11y.enter_landscape" = "ملء الشاشة بالوضع الأفقي";
+"player.a11y.exit_landscape" = "الخروج من ملء الشاشة الأفقي";
+"player.a11y.last_channel" = "آخر قناة تمت مشاهدتها";
+"epg.next_format" = "التالي: %@";
+"common.done" = "تم";
+"player.airplay.switch_to_airplay" = "التبديل إلى AirPlay";
+"player.airplay.native_live_cast" = "AirPlay: تجربة بث HLS من المزوّد للقنوات المباشرة (تجريبي)";
+"player.airplay.notice.sound_stays_on_airplay" = "يستمر التشغيل على هذا الجهاز، وقد يبقى الصوت على جهاز AirPlay.";
+"player.airplay.notice.no_video_on_route" = "لم يبدأ الفيديو على جهاز AirPlay.";
+"player.airplay.playing_on" = "يتم التشغيل على %@";
+
+/* Browse screens */
+"m3u.history.unavailable.title" = "لم يعد موجودًا في قائمة التشغيل";
+"m3u.history.unavailable.message" = "لم يعد من الممكن تشغيل هذا العنصر من قائمة التشغيل هذه. ربما تمت إزالته أو تغيّر عنوانه. هل تريد إزالته من سجل المشاهدة؟";
+"m3u.history.remove" = "إزالة من السجل";
+"m3u.empty.all_hidden.title" = "جميع الفئات مخفية";
+"m3u.empty.all_hidden.message" = "أظهر فئة من قائمة الفئات لعرض قنواتها.";
+"settings.copy" = "نسخ";
+"history.item.remove" = "إزالة من السجل";
+"onboarding.delete.title_named" = "هل تريد حذف «%@»؟";
+"onboarding.form.discard" = "تجاهل التغييرات";
+"onboarding.form.keep_editing" = "متابعة التعديل";
+"onboarding.filter_adult.footer" = "يخفي الفئات والعناوين المصنّفة للكبار أو XXX أو 18+.";
+"onboarding.error.title.connection" = "تعذّر الاتصال";
+"onboarding.error.title.sign_in" = "فشل تسجيل الدخول";
+"onboarding.error.title.save" = "تعذّر حفظ القائمة";
+"onboarding.error.unreachable" = "لا يوجد خادم يستجيب على هذا العنوان. افحص العنوان والمنفذ.";
+"onboarding.error.timeout" = "استغرق الخادم وقتًا طويلًا للرد. حاول مرة أخرى بعد قليل.";
+"onboarding.error.offline" = "هذا الجهاز غير متصل بالإنترنت. اتصل بالإنترنت ثم حاول مرة أخرى.";
+"onboarding.error.not_xtream" = "هذا العنوان لم يستجب كخادم Xtream. افحص العنوان والمنفذ.";
+"onboarding.error.http" = "رفض الخادم الطلب (%@).";
+"onboarding.error.invalid_address" = "هذا العنوان غير صالح. يجب أن يبدأ الرابط بـ http:// أو https://.";
+"onboarding.error.connection" = "فشل الاتصال بالخادم. افحص العنوان ثم حاول مرة أخرى.";
+"kit.menu.hide_category" = "إخفاء الفئة";
+"kit.menu.remove_from_history" = "إزالة من السجل";
+"kit.menu.schedule" = "جدول البرامج";
+"kit.error.offline" = "يبدو أنك غير متصل بالإنترنت. تحقق من اتصالك.";
+"kit.error.connection_lost" = "انقطع الاتصال بالخادم.";
+"kit.error.unreachable" = "تعذر الوصول إلى الخادم. تحقق من عنوان الخادم.";
+"kit.error.insecure" = "تعذر إنشاء اتصال آمن بالخادم.";
+"kit.error.unexpected_response" = "أرسل الخادم استجابة غير متوقعة.";
+"kit.error.cancelled" = "تم إلغاء الطلب.";
+"kit.error.connection_failed" = "تعذر الاتصال بالخادم (الخطأ %ld).";
+"kit.error.file_unreadable" = "تعذرت قراءة الملف.";
+"kit.error.generic" = "حدث خطأ ما.";
+
+/* TV guide hidden categories */
+"guide.all_hidden.title" = "كل الفئات مخفية";
+"guide.all_hidden.message" = "أظهر فئة في منتقي الفئات لعرض قنواتها في دليل التلفزيون.";
