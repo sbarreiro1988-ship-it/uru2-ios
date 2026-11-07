@@ -89,7 +89,8 @@ enum M3UImporter {
                 tvgCountry: ch.tvgCountry,
                 groupTitle: ch.groupTitle,
                 userAgent: ch.userAgent,
-                sortIndex: index,
+                // URU2.COM: Uruguay groups first (see URU2Priority).
+                sortIndex: URU2Priority.sortIndex(index, prioritised: URU2Priority.isUruguay(ch.groupTitle)),
                 catchup: ch.catchup,
                 catchupSource: ch.catchupSource,
                 catchupDays: ch.catchupDays

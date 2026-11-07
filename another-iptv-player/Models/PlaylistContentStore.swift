@@ -696,16 +696,17 @@ final class PlaylistContentStore: ObservableObject {
         db: Database, pid: UUID, categories: [XtreamCategory], streams: [XtreamLiveStream], filterAdult: Bool
     ) throws {
         let adultCatIds = filterAdult ? AdultContentFilter.adultCategoryIds(from: categories) : []
+        let uyCatIds = URU2Priority.categoryIds(in: categories)
         try db.execute(sql: "DELETE FROM category WHERE playlistId = ? AND type = 'live'", arguments: [pid])
         try db.execute(sql: "DELETE FROM liveStream WHERE playlistId = ?", arguments: [pid])
         for (index, cat) in categories.enumerated() {
             if filterAdult, let name = cat.categoryName, AdultContentFilter.isAdultCategoryName(name) { continue }
-            let dbCat = DBCategory(id: cat.id, name: cat.categoryName ?? L("content.unnamed"), parentId: cat.parentId, type: "live", sortIndex: index, playlistId: pid)
+            let dbCat = DBCategory(id: cat.id, name: cat.categoryName ?? L("content.unnamed"), parentId: cat.parentId, type: "live", sortIndex: URU2Priority.sortIndex(index, prioritised: uyCatIds.contains(cat.id)), playlistId: pid)
             try dbCat.insert(db, onConflict: .replace)
         }
         for (index, stream) in streams.enumerated() {
             if filterAdult, AdultContentFilter.isAdultLiveStream(stream, adultCategoryIds: adultCatIds) { continue }
-            let dbStream = DBLiveStream(streamId: stream.id, name: stream.name ?? L("content.unnamed"), streamIcon: stream.streamIcon, epgChannelId: stream.epgChannelId, categoryId: stream.categoryId, sortIndex: index, playlistId: pid, tvArchive: stream.tvArchive ?? 0, tvArchiveDuration: stream.tvArchiveDuration ?? 0)
+            let dbStream = DBLiveStream(streamId: stream.id, name: stream.name ?? L("content.unnamed"), streamIcon: stream.streamIcon, epgChannelId: stream.epgChannelId, categoryId: stream.categoryId, sortIndex: URU2Priority.sortIndex(index, prioritised: stream.categoryId.map { uyCatIds.contains($0) } ?? false), playlistId: pid, tvArchive: stream.tvArchive ?? 0, tvArchiveDuration: stream.tvArchiveDuration ?? 0)
             try dbStream.insert(db, onConflict: .replace)
         }
     }
@@ -714,16 +715,17 @@ final class PlaylistContentStore: ObservableObject {
         db: Database, pid: UUID, categories: [XtreamCategory], streams: [XtreamVODStream], filterAdult: Bool
     ) throws {
         let adultCatIds = filterAdult ? AdultContentFilter.adultCategoryIds(from: categories) : []
+        let uyCatIds = URU2Priority.categoryIds(in: categories)
         try db.execute(sql: "DELETE FROM category WHERE playlistId = ? AND type = 'vod'", arguments: [pid])
         try db.execute(sql: "DELETE FROM vodStream WHERE playlistId = ?", arguments: [pid])
         for (index, cat) in categories.enumerated() {
             if filterAdult, let name = cat.categoryName, AdultContentFilter.isAdultCategoryName(name) { continue }
-            let dbCat = DBCategory(id: cat.id, name: cat.categoryName ?? L("content.unnamed"), parentId: cat.parentId, type: "vod", sortIndex: index, playlistId: pid)
+            let dbCat = DBCategory(id: cat.id, name: cat.categoryName ?? L("content.unnamed"), parentId: cat.parentId, type: "vod", sortIndex: URU2Priority.sortIndex(index, prioritised: uyCatIds.contains(cat.id)), playlistId: pid)
             try dbCat.insert(db, onConflict: .replace)
         }
         for (index, stream) in streams.enumerated() {
             if filterAdult, AdultContentFilter.isAdultVODStream(stream, adultCategoryIds: adultCatIds) { continue }
-            var dbVOD = DBVODStream(streamId: stream.id, name: stream.name ?? L("content.unnamed"), streamIcon: stream.streamIcon, categoryId: stream.categoryId, rating: stream.rating, containerExtension: stream.containerExtension, sortIndex: index, playlistId: pid)
+            var dbVOD = DBVODStream(streamId: stream.id, name: stream.name ?? L("content.unnamed"), streamIcon: stream.streamIcon, categoryId: stream.categoryId, rating: stream.rating, containerExtension: stream.containerExtension, sortIndex: URU2Priority.sortIndex(index, prioritised: stream.categoryId.map { uyCatIds.contains($0) } ?? false), playlistId: pid)
             dbVOD.added = stream.added
             try dbVOD.insert(db, onConflict: .replace)
         }
@@ -733,11 +735,12 @@ final class PlaylistContentStore: ObservableObject {
         db: Database, pid: UUID, categories: [XtreamCategory], series: [XtreamSeries], filterAdult: Bool
     ) throws {
         let adultCatIds = filterAdult ? AdultContentFilter.adultCategoryIds(from: categories) : []
+        let uyCatIds = URU2Priority.categoryIds(in: categories)
         try db.execute(sql: "DELETE FROM category WHERE playlistId = ? AND type = 'series'", arguments: [pid])
         try db.execute(sql: "DELETE FROM series WHERE playlistId = ?", arguments: [pid])
         for (index, cat) in categories.enumerated() {
             if filterAdult, let name = cat.categoryName, AdultContentFilter.isAdultCategoryName(name) { continue }
-            let dbCat = DBCategory(id: cat.id, name: cat.categoryName ?? L("content.unnamed"), parentId: cat.parentId, type: "series", sortIndex: index, playlistId: pid)
+            let dbCat = DBCategory(id: cat.id, name: cat.categoryName ?? L("content.unnamed"), parentId: cat.parentId, type: "series", sortIndex: URU2Priority.sortIndex(index, prioritised: uyCatIds.contains(cat.id)), playlistId: pid)
             try dbCat.insert(db, onConflict: .replace)
         }
         for (index, s) in series.enumerated() {
@@ -755,7 +758,7 @@ final class PlaylistContentStore: ObservableObject {
                 lastModified: s.lastModified,
                 youtubeTrailer: s.youtubeTrailer,
                 categoryId: s.categoryId,
-                sortIndex: index,
+                sortIndex: URU2Priority.sortIndex(index, prioritised: s.categoryId.map { uyCatIds.contains($0) } ?? false),
                 playlistId: pid
             )
             try dbSeries.insert(db, onConflict: .replace)

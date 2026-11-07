@@ -13,6 +13,7 @@ App iOS de URU2.COM, basada en el proyecto de código abierto
 - Se quitaron las propinas ("Apoyar la aplicación") y el enlace a GitHub.
 - "Acerca de": web uru2.com, contacto y licencias de código abierto.
 - Soporte y reportes de errores van a contacto@uru2.com.
+- Categorías de Uruguay primero ("Uruguay" o "UY" en el nombre), en TV en vivo, películas, series y listas M3U.
 - Carátulas y logos de canales:
   - se aceptan servidores de imágenes con certificado HTTPS autofirmado (solo imágenes);
   - más tiempo de espera y más conexiones por servidor;
