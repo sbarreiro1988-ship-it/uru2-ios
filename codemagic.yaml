@@ -9,6 +9,8 @@ workflows:
     environment:
       xcode: latest
     scripts:
+      - name: Instalar Metal Toolchain (Xcode 26)
+        script: xcodebuild -downloadComponent MetalToolchain
       - name: Compilar para simulador
         script: |
           set -o pipefail
@@ -47,6 +49,8 @@ workflows:
         XCODE_SCHEME: another-iptv-player
       xcode: latest
     scripts:
+      - name: Instalar Metal Toolchain (Xcode 26)
+        script: xcodebuild -downloadComponent MetalToolchain
       - name: Firma (certificado + perfil)
         script: xcode-project use-profiles
       - name: Compilar .ipa
