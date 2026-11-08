@@ -107,3 +107,57 @@ struct Playlist: Identifiable, Codable, FetchableRecord, PersistableRecord, Equa
 extension Playlist {
     static let databaseTableName = "playlist"
 }
+
+// MARK: - Playlist persistence
+
+extension Playlist {
+    /// Written instead of the synthesized conformance: identical except that an Xtream
+    /// password goes to the Keychain rather than into the row.
+    nonisolated init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(UUID.self, forKey: .id)
+        name = try c.decode(String.self, forKey: .name)
+        serverURL = try c.decode(String.self, forKey: .serverURL)
+        username = try c.decode(String.self, forKey: .username)
+        let storedPassword = try c.decode(String.self, forKey: .password)
+        createdAt = try c.decode(Date.self, forKey: .createdAt)
+        filterAdultContent = try c.decode(Bool.self, forKey: .filterAdultContent)
+        type = try c.decode(String.self, forKey: .type)
+        m3uEpgURL = try c.decodeIfPresent(String.self, forKey: .m3uEpgURL)
+        epgURLOverride = try c.decodeIfPresent(String.self, forKey: .epgURLOverride)
+        epgEnabled = try c.decode(Bool.self, forKey: .epgEnabled)
+        serverTimezone = try c.decodeIfPresent(String.self, forKey: .serverTimezone)
+        timeshiftStyle = try c.decodeIfPresent(String.self, forKey: .timeshiftStyle)
+
+        if storedPassword.isEmpty, type == PlaylistKind.xtream.rawValue {
+            password = PlaylistCredentialStore.load(for: id) ?? ""
+        } else {
+            // M3U rows, and Xtream rows not migrated yet.
+            password = storedPassword
+        }
+    }
+
+    nonisolated func encode(to encoder: Encoder) throws {
+        var c = encoder.container(keyedBy: CodingKeys.self)
+        try c.encode(id, forKey: .id)
+        try c.encode(name, forKey: .name)
+        try c.encode(serverURL, forKey: .serverURL)
+        try c.encode(username, forKey: .username)
+        try c.encode(type == PlaylistKind.xtream.rawValue ? "" : password, forKey: .password)
+        try c.encode(createdAt, forKey: .createdAt)
+        try c.encode(filterAdultContent, forKey: .filterAdultContent)
+        try c.encode(type, forKey: .type)
+        try c.encodeIfPresent(m3uEpgURL, forKey: .m3uEpgURL)
+        try c.encodeIfPresent(epgURLOverride, forKey: .epgURLOverride)
+        try c.encode(epgEnabled, forKey: .epgEnabled)
+        try c.encodeIfPresent(serverTimezone, forKey: .serverTimezone)
+        try c.encodeIfPresent(timeshiftStyle, forKey: .timeshiftStyle)
+    }
+
+    /// Runs before every insert and update. Throwing aborts the write, so the row is
+    /// never saved without its password somewhere.
+    nonisolated func willSave(_ db: Database) throws {
+        guard type == PlaylistKind.xtream.rawValue else { return }
+        try PlaylistCredentialStore.save(password, for: id)
+    }
+}

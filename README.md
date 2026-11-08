@@ -21,6 +21,9 @@ App iOS de URU2.COM, basada en el proyecto de código abierto
   - `backdrop_path` como texto suelto, no solo como lista;
   - si la película o serie viene sin carátula en el listado, se usa la de la ficha.
 
+- Contraseñas de Xtream en el Keychain de iOS (issue #100 del original): la base
+  de datos ya no las guarda; las existentes se migran solas al abrir la app.
+- Chips de categorías también en TV en vivo.
 - Inicio de Películas y Series rediseñado:
   - chips de categorías arriba ("Categorías ▾" abre la lista completa);
   - cartel grande con las 8 últimas agregadas, que pasa solo, con "Reproducir" y "Mi lista";

@@ -364,6 +364,7 @@ struct ContentView: View {
                 _ = try await appDatabase.write { db in
                     try Playlist.deleteAll(db, ids: [id])
                 }
+                PlaylistCredentialStore.delete(for: id)
                 HiddenCategoryStore.shared.removeAll(playlistId: id)
                 DownloadManager.shared.cleanupPlaylist(playlistId: id)
                 ImportedSubtitleStore.removeAll(playlistId: id)

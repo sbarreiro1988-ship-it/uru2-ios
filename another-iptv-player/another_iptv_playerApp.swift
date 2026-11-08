@@ -60,6 +60,10 @@ struct another_iptv_playerApp: App {
         IPTVRemoteImagePipeline.installAsShared()
         _ = AppDatabase.shared
         MockFixture.seedIfNeeded()
+        // URU2.COM: Xtream passwords move from the database to the Keychain.
+        Task.detached(priority: .utility) {
+            await PlaylistCredentialStore.migrate(AppDatabase.shared)
+        }
         UserDefaults.standard.register(defaults: [
             "player.pipEnabled": true,
             "player.continuePlayingInBackground": true,

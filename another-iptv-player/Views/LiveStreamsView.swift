@@ -386,6 +386,22 @@ struct LiveStreamsView: View {
     private func contentList(_ shelves: LiveShelves) -> some View {
         ScrollViewReader { proxy in
             ScrollView {
+                // URU2.COM: category chips, as on Movies and Series. Uruguay's
+                // categories come first (see URU2Priority).
+                if debouncedQuery.trimmingCharacters(in: .whitespaces).isEmpty {
+                    URU2CategoryChips(
+                        categories: shelves.categories,
+                        onShowAll: {
+                            pendingScrollTarget = nil
+                            showingCategoryPicker = true
+                        },
+                        onSelect: { id in
+                            pendingScrollTarget = nil
+                            DispatchQueue.main.async { pendingScrollTarget = id }
+                        }
+                    )
+                }
+
                 ContinueWatchingRow(
                     playlist: playlist,
                     typeFilter: "live",
