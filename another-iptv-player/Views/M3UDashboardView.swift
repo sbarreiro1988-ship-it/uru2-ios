@@ -31,6 +31,9 @@ struct M3UDashboardView: View {
                         M3UChannelsView(playlist: playlist)
                             .navigationTitle(L("dashboard.channels"))
                             .navigationBarTitleDisplayMode(.large)
+                            .toolbar {
+                                ToolbarItem(placement: .topBarLeading) { URU2LogoView(height: 22) }
+                            }
                             .toolbar(.visible, for: .navigationBar)
                             .toolbarBackground(.visible, for: .navigationBar)
                     }

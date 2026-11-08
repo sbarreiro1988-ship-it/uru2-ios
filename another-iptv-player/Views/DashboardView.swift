@@ -297,6 +297,10 @@ private struct DashboardNavigationModifier: ViewModifier {
             .navigationTitle(tabTitle)
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
+                // URU2.COM: the logo at the top left of every tab.
+                ToolbarItem(placement: .topBarLeading) {
+                    URU2LogoView(height: 22)
+                }
                 if let type = type {
                     ToolbarItem(placement: .navigationBarTrailing) {
                         NavigationLink(destination: FavoritesView(playlist: playlist, initialType: type)) {

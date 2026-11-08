@@ -178,3 +178,18 @@ nonisolated enum URU2Meta {
         return parts.joined(separator: " · ")
     }
 }
+
+// MARK: - Logo
+
+/// The URU2 wordmark (Assets: URU2Logo). Decorative: the screen title says where you are.
+struct URU2LogoView: View {
+    var height: CGFloat
+
+    var body: some View {
+        Image("URU2Logo")
+            .resizable()
+            .scaledToFit()
+            .frame(height: height)
+            .accessibilityLabel("URU2.COM")
+    }
+}

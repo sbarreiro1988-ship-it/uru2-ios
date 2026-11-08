@@ -105,6 +105,7 @@ struct ContentView: View {
                     }
                     .navigationTitle(L("playlists.title"))
                     .toolbar {
+                        ToolbarItem(placement: .topBarLeading) { URU2LogoView(height: 22) }
                         ToolbarItem(placement: .primaryAction) {
                             Menu {
                                 addPlaylistActions
@@ -251,7 +252,11 @@ struct ContentView: View {
 
     private var emptyState: some View {
         ContentUnavailableView {
-            Label(L("playlists.empty.title"), systemImage: "tv.badge.wifi")
+            VStack(spacing: 18) {
+                URU2LogoView(height: 64)
+                Text(L("playlists.empty.title"))
+                    .font(.title2.weight(.bold))
+            }
         } description: {
             Text(L("playlists.empty.message"))
         } actions: {
