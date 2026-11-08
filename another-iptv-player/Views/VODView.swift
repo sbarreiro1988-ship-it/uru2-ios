@@ -293,12 +293,30 @@ struct VODView: View {
     private func shelfList(_ shelves: ShelfList) -> some View {
         ScrollViewReader { proxy in
             ScrollView {
+                if isBrowsingHome {
+                    URU2CategoryChips(
+                        categories: shelves.categories,
+                        onShowAll: {
+                            pendingScrollTarget = nil
+                            showingCategoryPicker = true
+                        },
+                        onSelect: { id in
+                            pendingScrollTarget = nil
+                            DispatchQueue.main.async { pendingScrollTarget = id }
+                        }
+                    )
+                }
+
                 if isBrowsingHome, !shelves.recentlyAdded.isEmpty {
                     URU2HeroBanner(
                         items: Array(shelves.recentlyAdded.prefix(8)),
                         containerWidth: shelfWidth,
+                        playlistId: playlist.id,
+                        favoriteType: "vod",
+                        favoriteId: { $0.streamId },
                         imageURL: { $0.streamIcon.flatMap { URL(string: $0) } },
                         title: { $0.name },
+                        meta: { URU2Meta.line(kind: L("uru2.kind.movie"), genre: $0.genre, rating: $0.rating) },
                         destination: { MovieDetailView(playlist: playlist, movie: $0) }
                     )
                 }
@@ -326,13 +344,13 @@ struct VODView: View {
                 }
 
                 if isBrowsingHome, !topMovies.isEmpty {
-                    RecentlyAddedVODShelf(
-                        playlist: playlist,
+                    URU2Top10Shelf(
+                        title: L("uru2.top10.movies"),
                         items: topMovies,
-                        containerWidth: shelfWidth,
-                        title: L("uru2.top10.movies")
+                        imageURL: { $0.streamIcon.flatMap { URL(string: $0) } },
+                        iconName: "film",
+                        destination: { MovieDetailView(playlist: playlist, movie: $0, queue: topMovies) }
                     )
-                    .equatable()
                 }
 
                 LazyVStack(spacing: 0) {
@@ -986,6 +1004,8 @@ struct VODStreamCard: View {
         .overlay(alignment: .bottom) {
             if let progress = watchProgress, progress > 0 {
                 CardProgressBar(fraction: progress).padding(6)
+            } else if URU2Fresh.isNew(stream.added) {
+                URU2NewBadge().padding(.bottom, 6)
             }
         }
     }

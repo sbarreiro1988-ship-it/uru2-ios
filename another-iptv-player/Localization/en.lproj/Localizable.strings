@@ -658,4 +658,9 @@
 "uru2.top10.movies" = "Top 10 movies";
 "uru2.top10.series" = "Top 10 series";
 "uru2.banner.new" = "New";
-"uru2.banner.open" = "Watch now";
+"uru2.banner.open" = "Play";
+"uru2.banner.my_list" = "My list";
+"uru2.badge.new" = "Recently added";
+"uru2.chips.all" = "Categories";
+"uru2.kind.movie" = "Movie";
+"uru2.kind.series" = "Series";

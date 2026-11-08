@@ -320,12 +320,30 @@ struct SeriesView: View {
             } else {
                 ScrollViewReader { proxy in
                     ScrollView {
+                        if key.query.isEmpty {
+                            URU2CategoryChips(
+                                categories: shelves.categories,
+                                onShowAll: {
+                                    pendingScrollTarget = nil
+                                    showingCategoryPicker = true
+                                },
+                                onSelect: { id in
+                                    pendingScrollTarget = nil
+                                    DispatchQueue.main.async { pendingScrollTarget = id }
+                                }
+                            )
+                        }
+
                         if key.query.isEmpty, !shelves.recents.isEmpty {
                             URU2HeroBanner(
                                 items: Array(shelves.recents.prefix(8)),
                                 containerWidth: UIScreen.main.bounds.width,
+                                playlistId: playlist.id,
+                                favoriteType: "series",
+                                favoriteId: { $0.seriesId },
                                 imageURL: { $0.cover.flatMap { URL(string: $0) } },
                                 title: { $0.name },
+                                meta: { URU2Meta.line(kind: L("uru2.kind.series"), genre: $0.genre, rating: $0.rating) },
                                 destination: { SeriesDetailView(playlist: playlist, series: $0) }
                             )
                         }
@@ -353,12 +371,13 @@ struct SeriesView: View {
                         }
 
                         if key.query.isEmpty, !topSeries.isEmpty {
-                            RecentlyAddedSeriesShelf(
-                                playlist: playlist,
+                            URU2Top10Shelf(
+                                title: L("uru2.top10.series"),
                                 items: topSeries,
-                                title: L("uru2.top10.series")
+                                imageURL: { $0.cover.flatMap { URL(string: $0) } },
+                                iconName: "play.tv",
+                                destination: { SeriesDetailView(playlist: playlist, series: $0) }
                             )
-                            .equatable()
                         }
 
                         LazyVStack(spacing: 0) {
@@ -902,6 +921,8 @@ struct SeriesCard: View {
         .overlay(alignment: .bottom) {
             if let progress = watchProgress, progress > 0 {
                 CardProgressBar(fraction: progress).padding(6)
+            } else if URU2Fresh.isNew(stream.lastModified) {
+                URU2NewBadge().padding(.bottom, 6)
             }
         }
     }

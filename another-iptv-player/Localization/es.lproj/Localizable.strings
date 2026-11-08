@@ -608,7 +608,12 @@
 "settings.about.contact.title" = "Contacto";
 "settings.about.licenses.title" = "Licencias de código abierto";
 "settings.about.licenses.intro" = "URU2.COM está basada en software de código abierto publicado bajo la licencia MIT.";
-"uru2.top10.movies" = "Top 10 películas";
-"uru2.top10.series" = "Top 10 series";
+"uru2.top10.movies" = "Las 10 películas más vistas";
+"uru2.top10.series" = "Las 10 series más vistas";
 "uru2.banner.new" = "Nuevo";
-"uru2.banner.open" = "Ver ahora";
+"uru2.banner.open" = "Reproducir";
+"uru2.banner.my_list" = "Mi lista";
+"uru2.badge.new" = "Recién agregado";
+"uru2.chips.all" = "Categorías";
+"uru2.kind.movie" = "Película";
+"uru2.kind.series" = "Serie";
