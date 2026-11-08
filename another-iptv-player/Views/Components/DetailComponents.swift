@@ -400,32 +400,37 @@ struct DetailActionBar: View {
     private var primaryCTA: some View {
         Button(action: onPrimary) {
             VStack(spacing: 0) {
-                HStack(spacing: 12) {
+                // URU2.COM: white and centred, like the secondary buttons under it.
+                HStack(spacing: 8) {
                     Image(systemName: primaryIcon)
-                        .font(.title3)
-                    VStack(alignment: .leading, spacing: 1) {
+                        .font(.subheadline.weight(.bold))
+                    VStack(spacing: 1) {
                         Text(primaryTitle)
                             .font(.subheadline.weight(.bold))
                         if let sub = primarySubtitle, !sub.isEmpty {
                             Text(sub)
-                                .font(.caption2)
-                                .opacity(0.82)
+                                .font(.caption2.weight(.medium))
+                                .opacity(0.6)
                                 .lineLimit(1)
                         }
                     }
                 }
-                // Full width with the content at the leading edge. No trailing chevron
-                // on purpose: the button plays, it does not navigate.
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, alignment: .center)
+                .foregroundStyle(.black)
                 .padding(.horizontal, 18)
-                .padding(.vertical, 14)
+                .padding(.vertical, 12)
 
                 if let progress {
-                    ProgressView(value: min(max(progress, 0), 1))
-                        .tint(.white)
-                        .padding(.horizontal, 18)
-                        .padding(.bottom, 10)
+                    GeometryReader { geo in
+                        ZStack(alignment: .leading) {
+                            Capsule().fill(Color.black.opacity(0.12))
+                            Capsule().fill(Color.accentColor)
+                                .frame(width: geo.size.width * min(max(progress, 0), 1))
+                        }
+                    }
+                    .frame(height: 3)
+                    .padding(.horizontal, 18)
+                    .padding(.bottom, 9)
                 }
             }
         }
@@ -461,17 +466,11 @@ struct DetailActionBar: View {
 /// left the button without any feedback until the player appeared.
 private struct DetailPrimaryButtonStyle: ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
-        let shape = RoundedRectangle(cornerRadius: 16, style: .continuous)
+        let shape = RoundedRectangle(cornerRadius: 12, style: .continuous)
         configuration.label
-            .background(
-                LinearGradient(
-                    colors: [Color.accentColor, Color.accentColor.opacity(0.78)],
-                    startPoint: .topLeading,
-                    endPoint: .bottomTrailing
-                )
-            )
+            .background(Color.white)
             .clipShape(shape)
-            .shadow(color: Color.accentColor.opacity(0.35), radius: 12, y: 6)
+            .shadow(color: Color.black.opacity(0.35), radius: 10, y: 4)
             .contentShape(shape)
             .opacity(configuration.isPressed ? 0.85 : 1)
             .scaleEffect(configuration.isPressed ? 0.98 : 1)

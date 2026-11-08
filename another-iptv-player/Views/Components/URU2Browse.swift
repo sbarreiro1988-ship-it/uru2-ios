@@ -16,15 +16,30 @@ nonisolated enum URU2Fresh {
     }
 }
 
+/// Small dark glass pill with a green dot: "● NUEVO".
 struct URU2NewBadge: View {
+    var large = false
+
     var body: some View {
-        Text(L("uru2.badge.new"))
-            .font(.caption2.weight(.heavy))
-            .padding(.horizontal, 8)
-            .padding(.vertical, 3)
-            .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 4))
-            .foregroundStyle(.black)
-            .accessibilityLabel(L("uru2.badge.new"))
+        HStack(spacing: large ? 6 : 4) {
+            Circle()
+                .fill(Color.accentColor)
+                .frame(width: large ? 6 : 5, height: large ? 6 : 5)
+                .shadow(color: Color.accentColor.opacity(0.8), radius: 3)
+            Text(L("uru2.badge.new"))
+                .font(.system(size: large ? 11 : 9, weight: .bold))
+                .tracking(large ? 1.2 : 0.8)
+                .textCase(.uppercase)
+                .foregroundStyle(.white)
+        }
+        .padding(.horizontal, large ? 10 : 7)
+        .padding(.vertical, large ? 5 : 4)
+        .background(.ultraThinMaterial, in: Capsule())
+        .background(Color.black.opacity(0.35), in: Capsule())
+        .overlay(Capsule().strokeBorder(Color.white.opacity(0.15), lineWidth: 0.5))
+        .environment(\.colorScheme, .dark)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(L("uru2.badge.new"))
     }
 }
 

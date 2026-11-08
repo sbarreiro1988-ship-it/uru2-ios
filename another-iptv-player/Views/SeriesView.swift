@@ -921,8 +921,11 @@ struct SeriesCard: View {
         .overlay(alignment: .bottom) {
             if let progress = watchProgress, progress > 0 {
                 CardProgressBar(fraction: progress).padding(6)
-            } else if URU2Fresh.isNew(stream.lastModified) {
-                URU2NewBadge().padding(.bottom, 6)
+            }
+        }
+        .overlay(alignment: .topLeading) {
+            if URU2Fresh.isNew(stream.lastModified) {
+                URU2NewBadge().padding(6)
             }
         }
     }

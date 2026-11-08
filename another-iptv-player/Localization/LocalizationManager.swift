@@ -26,6 +26,9 @@ final class LocalizationManager: ObservableObject {
 
     /// UserDefaults key — "system" veya iki harfli ISO 639-1 kod.
     nonisolated private static let storageKey = "app.selected_language"
+    /// URU2.COM: the app starts in Spanish whatever the device language; another one
+    /// can still be chosen in Settings.
+    nonisolated static let defaultLanguage = "es"
 
     /// Kullanıcı seçimi. Değişince tüm view'lar re-render olsun diye @Published.
     @Published var selectedLanguage: String {
@@ -42,7 +45,7 @@ final class LocalizationManager: ObservableObject {
     }
 
     private init() {
-        self.selectedLanguage = UserDefaults.standard.string(forKey: Self.storageKey) ?? "system"
+        self.selectedLanguage = UserDefaults.standard.string(forKey: Self.storageKey) ?? Self.defaultLanguage
     }
 
     // MARK: - Rebuild after a language change
@@ -137,7 +140,7 @@ final class LocalizationManager: ObservableObject {
     /// The stored choice as it is read without the manager. `selectedLanguage` writes the
     /// same key, and a launch argument can override it.
     nonisolated fileprivate static func storedLanguageCode() -> String {
-        let stored = UserDefaults.standard.string(forKey: storageKey) ?? "system"
+        let stored = UserDefaults.standard.string(forKey: storageKey) ?? defaultLanguage
         return stored == "system" ? systemLanguageCode() : stored
     }
 

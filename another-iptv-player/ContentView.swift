@@ -263,10 +263,13 @@ struct ContentView: View {
             Menu {
                 addPlaylistActions
             } label: {
-                Text(L("playlists.empty.add_button"))
+                Label(L("playlists.empty.add_button"), systemImage: "plus")
+                    .font(.subheadline.weight(.semibold))
+                    .foregroundStyle(.black)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 10)
+                    .background(Color.white, in: Capsule())
             }
-            .menuStyle(.button)
-            .buttonStyle(.borderedProminent)
         }
     }
 

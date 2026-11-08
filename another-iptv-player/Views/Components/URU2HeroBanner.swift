@@ -86,13 +86,7 @@ struct URU2HeroBanner<Item: Identifiable & Equatable, Destination: View>: View {
                     )
                     .frame(width: cardWidth, height: cardHeight)
 
-                    Text(L("uru2.banner.new"))
-                        .font(.caption.weight(.heavy))
-                        .textCase(.uppercase)
-                        .padding(.horizontal, 9)
-                        .padding(.vertical, 4)
-                        .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 5))
-                        .foregroundStyle(.black)
+                    URU2NewBadge(large: true)
                         .padding(14)
                 }
             }
