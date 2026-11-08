@@ -143,7 +143,13 @@ extension Playlist {
         try c.encode(name, forKey: .name)
         try c.encode(serverURL, forKey: .serverURL)
         try c.encode(username, forKey: .username)
-        try c.encode(type == PlaylistKind.xtream.rawValue ? "" : password, forKey: .password)
+        // The column is left empty only when the Keychain really holds this password
+        // (it is unavailable to unsigned builds, e.g. the simulator); otherwise the
+        // password stays in the row as before.
+        let inKeychain = type == PlaylistKind.xtream.rawValue
+            && !password.isEmpty
+            && PlaylistCredentialStore.load(for: id) == password
+        try c.encode(inKeychain ? "" : password, forKey: .password)
         try c.encode(createdAt, forKey: .createdAt)
         try c.encode(filterAdultContent, forKey: .filterAdultContent)
         try c.encode(type, forKey: .type)
@@ -154,10 +160,14 @@ extension Playlist {
         try c.encodeIfPresent(timeshiftStyle, forKey: .timeshiftStyle)
     }
 
-    /// Runs before every insert and update. Throwing aborts the write, so the row is
-    /// never saved without its password somewhere.
+    /// Runs before every insert and update. A Keychain failure never blocks the save:
+    /// `encode` then keeps the password in the row.
     nonisolated func willSave(_ db: Database) throws {
         guard type == PlaylistKind.xtream.rawValue else { return }
-        try PlaylistCredentialStore.save(password, for: id)
+        do {
+            try PlaylistCredentialStore.save(password, for: id)
+        } catch {
+            Log.error("Credentials", "Keychain unavailable, password kept in the database: \(error)")
+        }
     }
 }

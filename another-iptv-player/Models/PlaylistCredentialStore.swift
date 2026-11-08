@@ -59,6 +59,18 @@ nonisolated enum PlaylistCredentialStore {
         return String(data: data, encoding: .utf8)
     }
 
+    /// Whether this build can use the Keychain at all (unsigned simulator builds cannot).
+    static func isAvailable() -> Bool {
+        let probe = UUID(uuidString: "00000000-0000-0000-0000-000000000001")!
+        do {
+            try save("probe", for: probe)
+            delete(for: probe)
+            return true
+        } catch {
+            return false
+        }
+    }
+
     static func delete(for id: UUID) {
         SecItemDelete(baseQuery(id) as CFDictionary)
     }
@@ -82,6 +94,7 @@ nonisolated enum PlaylistCredentialStore {
     /// Keychain items of deleted playlists. Idempotent; run once per launch. A
     /// password whose Keychain write fails stays in the database.
     static func migrate(_ database: AppDatabase) async {
+        guard isAvailable() else { return }
         do {
             let liveIds: Set<UUID> = try await database.write { db in
                 let legacy = try Playlist
