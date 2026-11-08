@@ -1,6 +1,35 @@
 # URU2.COM — compilación iOS en Codemagic (sin Mac)
-# Genera el .ipa firmado y lo sube a TestFlight.
 workflows:
+  # 1) Prueba: compila para el simulador. No necesita cuenta de Apple ni firma.
+  #    Deja un .zip con la app para correrla en el navegador (Appetize.io).
+  ios-simulator:
+    name: URU2.COM iOS → prueba en simulador
+    instance_type: mac_mini_m2
+    max_build_duration: 120
+    environment:
+      xcode: latest
+    scripts:
+      - name: Compilar para simulador
+        script: |
+          set -o pipefail
+          xcodebuild \
+            -workspace another-iptv-player.xcworkspace \
+            -scheme another-iptv-player \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath build/sim \
+            CODE_SIGNING_ALLOWED=NO \
+            build | tee /tmp/xcodebuild.log | xcpretty || (tail -200 /tmp/xcodebuild.log; exit 1)
+      - name: Empaquetar .app
+        script: |
+          cd build/sim/Build/Products/Debug-iphonesimulator
+          zip -qr "$CM_BUILD_DIR/URU2-simulador.zip" *.app
+    artifacts:
+      - URU2-simulador.zip
+      - /tmp/xcodebuild.log
+
+  # 2) Publicación: .ipa firmado y subida a TestFlight.
   ios-testflight:
     name: URU2.COM iOS → TestFlight
     instance_type: mac_mini_m2
