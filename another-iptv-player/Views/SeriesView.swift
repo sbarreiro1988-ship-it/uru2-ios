@@ -196,6 +196,44 @@ struct SeriesView: View {
     @State private var showingCategoryPicker = false
     @State private var pendingScrollTarget: String? = nil
 
+    /// URU2.COM: "Top 10" from the uru2 ranking, matched against this catalog.
+    @ObservedObject private var ranking = URU2Ranking.shared
+    @State private var topSeries: [DBSeries] = []
+
+    private struct TopKey: Equatable {
+        let revision: Int
+        let ranking: Int
+        let hiddenVersion: Int
+        let isActive: Bool
+        let streamsLoaded: Bool
+    }
+
+    private var topKey: TopKey {
+        TopKey(
+            revision: contentStore.seriesRevision,
+            ranking: ranking.version,
+            hiddenVersion: hiddenStore.version,
+            isActive: playlist.id == contentStore.activePlaylistId,
+            streamsLoaded: contentStore.streamsLoaded
+        )
+    }
+
+    private func refreshTop() async {
+        await ranking.refreshIfNeeded(for: playlist)
+        guard URU2Ranking.appliesTo(playlist), playlist.id == contentStore.activePlaylistId else {
+            if !topSeries.isEmpty { topSeries = [] }
+            return
+        }
+        let ids = ranking.series
+        let items = contentStore.seriesItems
+        let hidden = hiddenStore.hiddenIds(playlistId: playlist.id, type: "series")
+        let result = await CatalogTextSearch.detached {
+            URU2RankingMatch.series(ids: ids, in: items, hidden: hidden)
+        }
+        guard !Task.isCancelled else { return }
+        if result != topSeries { topSeries = result }
+    }
+
     private var shelfKey: ShelfKey {
         ShelfKey(
             query: debouncedQuery.trimmingCharacters(in: .whitespacesAndNewlines),
@@ -282,6 +320,16 @@ struct SeriesView: View {
             } else {
                 ScrollViewReader { proxy in
                     ScrollView {
+                        if key.query.isEmpty, !shelves.recents.isEmpty {
+                            URU2HeroBanner(
+                                items: Array(shelves.recents.prefix(8)),
+                                containerWidth: UIScreen.main.bounds.width,
+                                imageURL: { $0.cover.flatMap { URL(string: $0) } },
+                                title: { $0.name },
+                                destination: { SeriesDetailView(playlist: playlist, series: $0) }
+                            )
+                        }
+
                         ContinueWatchingRow(
                             playlist: playlist,
                             typeFilter: "series",
@@ -300,6 +348,15 @@ struct SeriesView: View {
                                 playlist: playlist,
                                 items: shelves.recents,
                                 isLoading: shelves.isRecentsLoading
+                            )
+                            .equatable()
+                        }
+
+                        if key.query.isEmpty, !topSeries.isEmpty {
+                            RecentlyAddedSeriesShelf(
+                                playlist: playlist,
+                                items: topSeries,
+                                title: L("uru2.top10.series")
                             )
                             .equatable()
                         }
@@ -392,6 +449,7 @@ struct SeriesView: View {
             if !active { searchText = ""; debouncedQuery = "" }
         }
         .task(id: key) { await recompute(for: key) }
+        .task(id: topKey) { await refreshTop() }
         .transaction { $0.animation = nil }
         .navigationDestination(item: $pendingSeriesDetail) { series in
             SeriesDetailView(playlist: playlist, series: series)
@@ -594,9 +652,12 @@ struct RecentlyAddedSeriesShelf: View, Equatable {
     let items: [DBSeries]
     /// The newest series are not known yet; the shelf holds its place with a placeholder.
     var isLoading: Bool = false
+    /// URU2.COM: the same shelf also draws "Top 10"; nil keeps "Recently added".
+    var title: String? = nil
 
     static func == (lhs: RecentlyAddedSeriesShelf, rhs: RecentlyAddedSeriesShelf) -> Bool {
         lhs.playlist.id == rhs.playlist.id && lhs.items == rhs.items && lhs.isLoading == rhs.isLoading
+            && lhs.title == rhs.title
     }
 
     @Environment(\.posterMetrics) private var posterMetrics
@@ -604,8 +665,8 @@ struct RecentlyAddedSeriesShelf: View, Equatable {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ShelfHeader(L("recently_added.title")) {
-                RecentlyAddedSeriesDetailView(playlist: playlist, items: items)
+            ShelfHeader(title ?? L("recently_added.title")) {
+                RecentlyAddedSeriesDetailView(playlist: playlist, items: items, title: title)
             }
             .disabled(items.isEmpty)
 
@@ -646,6 +707,7 @@ struct RecentlyAddedSeriesShelf: View, Equatable {
 struct RecentlyAddedSeriesDetailView: View {
     let playlist: Playlist
     let items: [DBSeries]
+    var title: String? = nil
 
     private var wrapped: [SeriesWithCategory] {
         items.map { SeriesWithCategory(series: $0, categoryName: "") }
@@ -656,7 +718,7 @@ struct RecentlyAddedSeriesDetailView: View {
         // promises whatever sort is stored for the other grids.
         SeriesCategoryContent(playlist: playlist, items: wrapped, allowsSorting: false)
             .equatable()
-            .navigationTitle(L("recently_added.title"))
+            .navigationTitle(title ?? L("recently_added.title"))
             .navigationBarTitleDisplayMode(.large)
     }
 }

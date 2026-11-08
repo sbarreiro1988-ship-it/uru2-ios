@@ -21,6 +21,11 @@ App iOS de URU2.COM, basada en el proyecto de código abierto
   - `backdrop_path` como texto suelto, no solo como lista;
   - si la película o serie viene sin carátula en el listado, se usa la de la ficha.
 
+- Banner arriba en Películas y Series con las 8 últimas agregadas (de la lista del usuario).
+- "Top 10 películas" y "Top 10 series": ranking de `https://botcode.jp2000.xyz/uru2/most_watched.json`
+  (solo IDs), cruzado con la lista del usuario. Solo se activa con listas de `tv.uru2.com`
+  (`URU2Ranking.rankedHosts`) y solo se muestra si coinciden al menos 5 títulos.
+
 ## Compilar sin Mac (Codemagic)
 
 1. Cuenta de Apple Developer (USD 99/año).

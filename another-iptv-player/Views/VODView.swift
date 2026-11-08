@@ -21,9 +21,34 @@ struct VODView: View {
     let playlist: Playlist
     @ObservedObject private var contentStore = PlaylistContentStore.shared
     @ObservedObject private var hiddenStore = HiddenCategoryStore.shared
+    @ObservedObject private var ranking = URU2Ranking.shared
     @Environment(\.playerOverlayController) private var playerOverlay
 
     @State private var pendingMovieDetail: DBVODStream?
+    /// URU2.COM: "Top 10" from the uru2 ranking, matched against this catalog.
+    @State private var topMovies: [DBVODStream] = []
+
+    private struct TopKey: Equatable {
+        let revision: Int
+        let ranking: Int
+        let hiddenVersion: Int
+        let isActive: Bool
+        let streamsLoaded: Bool
+    }
+
+    private var topKey: TopKey {
+        TopKey(
+            revision: contentStore.vodRevision,
+            ranking: ranking.version,
+            hiddenVersion: hiddenStore.version,
+            isActive: playlist.id == contentStore.activePlaylistId,
+            streamsLoaded: contentStore.streamsLoaded
+        )
+    }
+
+    private var isBrowsingHome: Bool {
+        debouncedQuery.trimmingCharacters(in: .whitespaces).isEmpty
+    }
 
     private var pickerEntries: [CategoryPickerSheet.Entry] {
         contentStore.vodCategories.map { cat in
@@ -246,6 +271,7 @@ struct VODView: View {
             if !active { searchText = ""; debouncedQuery = "" }
         }
         .task(id: key) { await refresh(for: key) }
+        .task(id: topKey) { await refreshTop() }
         .transaction { $0.animation = nil }
         .navigationDestination(item: $pendingMovieDetail) { movie in
             MovieDetailView(playlist: playlist, movie: movie)
@@ -267,6 +293,16 @@ struct VODView: View {
     private func shelfList(_ shelves: ShelfList) -> some View {
         ScrollViewReader { proxy in
             ScrollView {
+                if isBrowsingHome, !shelves.recentlyAdded.isEmpty {
+                    URU2HeroBanner(
+                        items: Array(shelves.recentlyAdded.prefix(8)),
+                        containerWidth: shelfWidth,
+                        imageURL: { $0.streamIcon.flatMap { URL(string: $0) } },
+                        title: { $0.name },
+                        destination: { MovieDetailView(playlist: playlist, movie: $0) }
+                    )
+                }
+
                 ContinueWatchingRow(
                     playlist: playlist,
                     typeFilter: "vod",
@@ -285,6 +321,16 @@ struct VODView: View {
                         playlist: playlist,
                         items: shelves.recentlyAdded,
                         containerWidth: shelfWidth
+                    )
+                    .equatable()
+                }
+
+                if isBrowsingHome, !topMovies.isEmpty {
+                    RecentlyAddedVODShelf(
+                        playlist: playlist,
+                        items: topMovies,
+                        containerWidth: shelfWidth,
+                        title: L("uru2.top10.movies")
                     )
                     .equatable()
                 }
@@ -320,6 +366,23 @@ struct VODView: View {
                 }
             }
         }
+    }
+
+    /// URU2.COM: fetches the ranking when due and matches it against this catalog.
+    private func refreshTop() async {
+        await ranking.refreshIfNeeded(for: playlist)
+        guard URU2Ranking.appliesTo(playlist), playlist.id == contentStore.activePlaylistId else {
+            if !topMovies.isEmpty { topMovies = [] }
+            return
+        }
+        let ids = ranking.movies
+        let streams = contentStore.vodStreams
+        let hidden = hiddenStore.hiddenIds(playlistId: playlist.id, type: "vod")
+        let result = await CatalogTextSearch.detached {
+            URU2RankingMatch.movies(ids: ids, in: streams, hidden: hidden)
+        }
+        guard !Task.isCancelled else { return }
+        if result != topMovies { topMovies = result }
     }
 
     /// Brings `searchShelves` and `recentBackfill` in line with `key`. The key is marked
@@ -679,11 +742,14 @@ struct RecentlyAddedVODShelf: View, Equatable {
     /// placeholder. The home view does not show it at all when there is nothing to add.
     let items: [DBVODStream]
     var containerWidth: CGFloat = 0
+    /// URU2.COM: the same shelf also draws "Top 10"; nil keeps "Recently added".
+    var title: String? = nil
 
     static func == (lhs: RecentlyAddedVODShelf, rhs: RecentlyAddedVODShelf) -> Bool {
         lhs.playlist.id == rhs.playlist.id &&
         lhs.items == rhs.items &&
-        lhs.containerWidth == rhs.containerWidth
+        lhs.containerWidth == rhs.containerWidth &&
+        lhs.title == rhs.title
     }
 
     @Environment(\.posterMetrics) private var posterMetrics
@@ -691,8 +757,8 @@ struct RecentlyAddedVODShelf: View, Equatable {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ShelfHeader(L("recently_added.title")) {
-                RecentlyAddedVODDetailView(playlist: playlist, items: items)
+            ShelfHeader(title ?? L("recently_added.title")) {
+                RecentlyAddedVODDetailView(playlist: playlist, items: items, title: title)
             }
             .disabled(items.isEmpty)
 
@@ -733,6 +799,7 @@ struct RecentlyAddedVODShelf: View, Equatable {
 struct RecentlyAddedVODDetailView: View {
     let playlist: Playlist
     let items: [DBVODStream]
+    var title: String? = nil
 
     private var wrapped: [VODWithCategory] {
         items.map { VODWithCategory(stream: $0, categoryName: "") }
@@ -743,7 +810,7 @@ struct RecentlyAddedVODDetailView: View {
         // here; and a list of twenty needs no search field.
         VODCategoryContent(playlist: playlist, items: wrapped, allowsSorting: false)
             .equatable()
-            .navigationTitle(L("recently_added.title"))
+            .navigationTitle(title ?? L("recently_added.title"))
             .navigationBarTitleDisplayMode(.large)
     }
 }
